@@ -3,6 +3,7 @@ namespace Snscripts\ITCReporter\Responses;
 
 use Snscripts\ITCReporter\Interfaces\ResponseProcessor;
 use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Psr7\str;
 
 class FinanceGetReport implements ResponseProcessor
 {
@@ -23,9 +24,11 @@ class FinanceGetReport implements ResponseProcessor
             return [];
         }
 
-        $rows = explode("\n", $reportCSV);
-        $headers = explode("\t", array_shift($rows));
-        $headerCount = count($headers);
+        $rows = str_getcsv($reportCSV, "\n");
+
+        $headerCount = 0;
+        $header = null;
+        $dataSource = null;
 
         $reportArray = [];
 
@@ -36,14 +39,27 @@ class FinanceGetReport implements ResponseProcessor
 
             $data = explode("\t", $values);
             $dataCount = count($data);
+            
+            if (($dataCount - 1) === $headerCount) {
+                $removedLastColumn = array_pop($data);
+                $dataCount--;
+            }
 
-            if ($headerCount !== $dataCount && $dataCount === 2) {
-                $reportArray[$data[0]] = $data[1];
-            } else {
-                $reportArray[] = array_combine(
+            if ($dataCount < 3) {
+                $reportArray["header"][$data[0]] = $data[1];
+            }
+
+            if ($dataCount > 3 && $dataSource !== null && $headerCount === $dataCount) {
+                $reportArray[$dataSource][] = array_combine(
                     $headers,
                     $data
                 );
+            }
+
+            if ($dataCount > 3 && $headerCount !== $dataCount) {
+                $headers = str_getcsv($values, "\t");
+                $headerCount = count($headers);
+                $dataSource = $dataSource === null ? "data" : "footer";
             }
         }
 
