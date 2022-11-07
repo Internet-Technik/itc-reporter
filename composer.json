@@ -1,14 +1,17 @@
 {
-    "name": "snscripts/itc-reporter",
-    "description": "PHP package for downloading stats from iTunes Connect - Replacement for Apples Java based Reporter.jar",
+    "name": "dlab/itc-reporter",
+    "description": "Fork of the 'iTunes Connect - Replacement for Apples Java based Reporter.jar' by mikebarlow",
     "keywords": ["iTunes", "Connect", "Reporter.jar", "App Stats"],
-    "homepage": "https://github.com/mikebarlow/itc-reporter",
+    "homepage": "https://github.com/Internet-Technik/itc-reporter",
     "license": "MIT",
     "authors": [
         {
             "name": "Mike Barlow",
-            "email": "mike@mikebarlow.co.uk",
-            "role": "Developer"
+            "email": "mike@mikebarlow.co.uk"
+        },
+        {
+            "name": "DigitalLab",
+            "email": "tec@stol.it"
         }
     ],
     "require": {
@@ -22,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Snscripts\\ITCReporter\\": "src"
+            "Dlab\\ITCReporter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Snscripts\\ITCReporter\\Tests\\": "tests"
+            "Dlab\\ITCReporter\\Tests\\": "tests"
         }
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Snscripts\ITCReporter\Interfaces;
+namespace Dlab\ITCReporter\Interfaces;
 
 use Psr\Http\Message\ResponseInterface;
 

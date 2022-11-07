@@ -1,7 +1,7 @@
 <?php
-namespace Snscripts\ITCReporter\Responses;
+namespace Dlab\ITCReporter\Responses;
 
-use Snscripts\ITCReporter\Interfaces\ResponseProcessor;
+use Dlab\ITCReporter\Interfaces\ResponseProcessor;
 use Psr\Http\Message\ResponseInterface;
 
 class SalesGetAccounts implements ResponseProcessor

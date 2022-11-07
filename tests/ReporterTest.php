@@ -1,7 +1,7 @@
 <?php
-namespace Snscripts\ITCReporter\Tests;
+namespace Dlab\ITCReporter\Tests;
 
-use Snscripts\ITCReporter\Reporter;
+use Dlab\ITCReporter\Reporter;
 use Snscripts\Result\Result;
 use GuzzleHttp\Client;
 
@@ -10,7 +10,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
     public function testCanCreateInstance()
     {
         $this->assertInstanceOf(
-            'Snscripts\ITCReporter\Reporter',
+            'Dlab\ITCReporter\Reporter',
             new Reporter(
                 new Client
             )
@@ -24,7 +24,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->assertInstanceOf(
-            'Snscripts\ITCReporter\Reporter',
+            'Dlab\ITCReporter\Reporter',
             $Reporter->setAccessToken('12345678-1234-abcd-abcd-12345678abcd')
         );
 
@@ -55,7 +55,7 @@ class ReporterTest extends \PHPUnit\Framework\TestCase
         );
 
         $this->assertInstanceOf(
-            'Snscripts\ITCReporter\Reporter',
+            'Dlab\ITCReporter\Reporter',
             $Reporter->setAccountNum(1234567)
         );
 

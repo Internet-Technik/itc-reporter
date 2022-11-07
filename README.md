@@ -1,10 +1,6 @@
 # iTunes Connect Reporter (ITC Reporter)
 
-[![Author](http://img.shields.io/badge/author-@mikebarlow-red.svg?style=flat-square)](https://twitter.com/mikebarlow)
-[![Source Code](http://img.shields.io/badge/source-mikebarlow/itc--reporter-brightgreen.svg?style=flat-square)](https://github.com/mikebarlow/itc-reporter)
-[![Latest Version](https://img.shields.io/github/release/mikebarlow/itc-reporter.svg?style=flat-square)](https://github.com/mikebarlow/itc-reporter/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://github.com/mikebarlow/itc-reporter/blob/master/LICENSE)
-[![Build Status](https://img.shields.io/travis/mikebarlow/itc-reporter/master.svg?style=flat-square)](https://travis-ci.org/mikebarlow/itc-reporter)
+This is a modified fork of the following repository: https://github.com/mikebarlow/itc-reporter
 
 ## Introduction
 
@@ -21,12 +17,12 @@ This is the first PHP Composer based port of the Reporter tool and attempts to m
 ITC-Reporter requires the following:
 
 * "php": ">=5.5.0"
-* "guzzlehttp/guzzle": "6.*"
+* "guzzlehttp/guzzle": "7.*"
 * "snscripts/result": "1.0.*"
 
 And the following if you wish to run in dev mode and run tests.
 
-* "phpunit/phpunit": "~4.0"
+* "phpunit/phpunit": "9.*"
 * "squizlabs/php_codesniffer": "~2.0"
 
 ## Installation
@@ -35,13 +31,13 @@ And the following if you wish to run in dev mode and run tests.
 
 Simplest installation is via composer.
 
-	composer require snscripts/itc-reporter 2.*
+	composer require dlab/itc-reporter 2.*
 
 or adding to your projects `composer.json` file.
 
 	{
 	    "require": {
-	        "snscripts/itc-reporter": "2.*"
+	        "dlab/itc-reporter": "2.*"
 	    }
 	}
 
@@ -49,7 +45,7 @@ or adding to your projects `composer.json` file.
 
 Instantiate the class as follows.
 
-	$Reporter = new \Snscripts\ITCReporter\Reporter(
+	$Reporter = new \Dlab\ITCReporter\Reporter(
 		new \GuzzleHttp\Client
 	);
 
@@ -334,7 +330,7 @@ If nothing was found or a problem occurred, a blank array will be returned. If t
 
 If you've run a method to get a report or account / vendor numbers to find you are not getting the results expected, you can retrieve the last Result object returned, this method should contain any information relating to why a request may have failed.
 
-    $Reporter = new \Snscripts\ITCReporter\Reporter(
+    $Reporter = new \Dlab\ITCReporter\Reporter(
         new \GuzzleHttp\Client
     );
 

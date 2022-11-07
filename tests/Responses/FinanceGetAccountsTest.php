@@ -1,7 +1,7 @@
 <?php
-namespace Snscripts\ITCReporter\Tests\Responses;
+namespace Dlab\ITCReporter\Tests\Responses;
 
-use Snscripts\ITCReporter\Responses\FinanceGetAccounts;
+use Dlab\ITCReporter\Responses\FinanceGetAccounts;
 
 class FinanceGetAccountsTest extends \PHPUnit\Framework\TestCase
 {

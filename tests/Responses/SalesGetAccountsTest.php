@@ -1,7 +1,7 @@
 <?php
-namespace Snscripts\ITCReporter\Tests\Responses;
+namespace Dlab\ITCReporter\Tests\Responses;
 
-use Snscripts\ITCReporter\Responses\SalesGetAccounts;
+use Dlab\ITCReporter\Responses\SalesGetAccounts;
 
 class SalesGetAccountsTest extends \PHPUnit\Framework\TestCase
 {

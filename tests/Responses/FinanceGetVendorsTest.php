@@ -1,7 +1,7 @@
 <?php
-namespace Snscripts\ITCReporter\Tests\Responses;
+namespace Dlab\ITCReporter\Tests\Responses;
 
-use Snscripts\ITCReporter\Responses\FinanceGetVendors;
+use Dlab\ITCReporter\Responses\FinanceGetVendors;
 
 class FinanceGetVendorsTest extends \PHPUnit\Framework\TestCase
 {

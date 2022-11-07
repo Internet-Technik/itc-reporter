@@ -1,5 +1,5 @@
 <?php
-namespace Snscripts\ITCReporter;
+namespace Dlab\ITCReporter;
 
 use GuzzleHttp\ClientInterface;
 use Snscripts\Result\Result;
@@ -19,12 +19,12 @@ class Reporter
     protected $account = 'None';
     protected $Guzzle;
     protected $responses = [
-        'Sales.getAccounts'            => '\Snscripts\ITCReporter\Responses\SalesGetAccounts',
-        'Sales.getVendors'             => '\Snscripts\ITCReporter\Responses\SalesGetVendors',
-        'Sales.getReport'              => '\Snscripts\ITCReporter\Responses\SalesGetReport',
-        'Finance.getAccounts'          => '\Snscripts\ITCReporter\Responses\FinanceGetAccounts',
-        'Finance.getVendorsAndRegions' => '\Snscripts\ITCReporter\Responses\FinanceGetVendors',
-        'Finance.getReport'            => '\Snscripts\ITCReporter\Responses\FinanceGetReport'
+        'Sales.getAccounts'            => '\Dlab\ITCReporter\Responses\SalesGetAccounts',
+        'Sales.getVendors'             => '\Dlab\ITCReporter\Responses\SalesGetVendors',
+        'Sales.getReport'              => '\Dlab\ITCReporter\Responses\SalesGetReport',
+        'Finance.getAccounts'          => '\Dlab\ITCReporter\Responses\FinanceGetAccounts',
+        'Finance.getVendorsAndRegions' => '\Dlab\ITCReporter\Responses\FinanceGetVendors',
+        'Finance.getReport'            => '\Dlab\ITCReporter\Responses\FinanceGetReport'
     ];
     protected $lastResult = null;
 
