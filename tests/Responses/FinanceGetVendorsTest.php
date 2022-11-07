@@ -3,7 +3,7 @@ namespace Snscripts\ITCReporter\Tests\Responses;
 
 use Snscripts\ITCReporter\Responses\FinanceGetVendors;
 
-class FinanceGetVendorsTest extends \PHPUnit_Framework_TestCase
+class FinanceGetVendorsTest extends \PHPUnit\Framework\TestCase
 {
     public function testProcessReturnsCorrectValueForSingleFinanceVendor()
     {

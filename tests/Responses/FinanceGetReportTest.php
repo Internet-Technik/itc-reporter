@@ -3,7 +3,7 @@ namespace Snscripts\ITCReporter\Tests\Responses;
 
 use Snscripts\ITCReporter\Responses\FinanceGetReport;
 
-class FinanceGetReportTest extends \PHPUnit_Framework_TestCase
+class FinanceGetReportTest extends \PHPUnit\Framework\TestCase
 {
     public function testProcessReturnsReportInArrayFormat()
     {

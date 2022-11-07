@@ -5,7 +5,7 @@ use Snscripts\ITCReporter\Reporter;
 use Snscripts\Result\Result;
 use GuzzleHttp\Client;
 
-class ReporterTest extends \PHPUnit_Framework_TestCase
+class ReporterTest extends \PHPUnit\Framework\TestCase
 {
     public function testCanCreateInstance()
     {
@@ -36,7 +36,7 @@ class ReporterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAccessTokenThrowsExceptionWithInvalidData()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $Reporter = new Reporter(
             new Client
@@ -67,7 +67,7 @@ class ReporterTest extends \PHPUnit_Framework_TestCase
 
     public function testSetAccountNumThrowsExceptionWithInvalidData()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $Reporter = new Reporter(
             new Client
@@ -123,7 +123,7 @@ class ReporterTest extends \PHPUnit_Framework_TestCase
 
     public function testBuildJsonRequestThrowsExceptionWhenNoDataPassed()
     {
-        $this->setExpectedException('BadFunctionCallException');
+        $this->expectException('BadFunctionCallException');
 
         $Reporter = new Reporter(
             new Client
@@ -172,7 +172,7 @@ class ReporterTest extends \PHPUnit_Framework_TestCase
 
     public function testProcessResponseThrowsExceptionIfInvalidAction()
     {
-        $this->setExpectedException('InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
 
         $BlankResponse = $this->getMockBuilder('Psr\Http\Message\ResponseInterface')->getMock();
         $BlankResponse->method('getBody')

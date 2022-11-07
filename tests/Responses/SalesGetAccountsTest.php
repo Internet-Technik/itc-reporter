@@ -3,7 +3,7 @@ namespace Snscripts\ITCReporter\Tests\Responses;
 
 use Snscripts\ITCReporter\Responses\SalesGetAccounts;
 
-class SalesGetAccountsTest extends \PHPUnit_Framework_TestCase
+class SalesGetAccountsTest extends \PHPUnit\Framework\TestCase
 {
     public function testProcessReturnsCorrectValueForSingleSalesAccount()
     {
