@@ -1,36 +1,41 @@
 {
-    "name": "dlab/itc-reporter",
-    "description": "Fork of the 'iTunes Connect - Replacement for Apples Java based Reporter.jar' by mikebarlow",
-    "keywords": ["iTunes", "Connect", "Reporter.jar", "App Stats"],
-    "homepage": "https://github.com/Internet-Technik/itc-reporter",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Mike Barlow",
-            "email": "mike@mikebarlow.co.uk"
-        },
-        {
-            "name": "DigitalLab",
-            "email": "tec@stol.it"
-        }
-    ],
-    "require": {
-        "php": ">=7.0",
-        "guzzlehttp/guzzle": "7.*",
-        "snscripts/result": "1.0.*"
+  "name": "dlab/itc-reporter",
+  "description": "Fork of the 'iTunes Connect - Replacement for Apples Java based Reporter.jar' by mikebarlow",
+  "keywords": [
+    "iTunes",
+    "Connect",
+    "Reporter.jar",
+    "App Stats"
+  ],
+  "homepage": "https://github.com/Internet-Technik/itc-reporter",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Mike Barlow",
+      "email": "mike@mikebarlow.co.uk"
     },
-    "require-dev": {
-        "phpunit/phpunit": "9.*",
-        "squizlabs/php_codesniffer": "~2.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Dlab\\ITCReporter\\": "src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Dlab\\ITCReporter\\Tests\\": "tests"
-        }
+    {
+      "name": "DigitalLab",
+      "email": "tec@stol.it"
     }
+  ],
+  "require": {
+    "php": ">=7.0",
+    "guzzlehttp/guzzle": "7.*",
+    "snscripts/result": "1.0.*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "9.*",
+    "squizlabs/php_codesniffer": "~2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dlab\\ITCReporter\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Dlab\\ITCReporter\\Tests\\": "tests"
+    }
+  }
 }

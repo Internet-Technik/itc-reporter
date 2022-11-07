@@ -5,13 +5,11 @@ use GuzzleHttp\ClientInterface;
 use Snscripts\Result\Result;
 use Psr\Http\Message\ResponseInterface;
 
-class Reporter
-{
-    const
-        SALESURL   = 'https://reportingitc-reporter.apple.com/reportservice/sales/v1',
+class Reporter {
+    const SALESURL = 'https://reportingitc-reporter.apple.com/reportservice/sales/v1',
         FINANCEURL = 'https://reportingitc-reporter.apple.com/reportservice/finance/v1',
-        VERSION    = '2.1',
-        MODE       = 'Robot.XML';
+        VERSION = '2.1',
+        MODE = 'Robot.XML';
 
     protected $userid;
     protected $password;
@@ -19,12 +17,14 @@ class Reporter
     protected $account = 'None';
     protected $Guzzle;
     protected $responses = [
-        'Sales.getAccounts'            => '\Dlab\ITCReporter\Responses\SalesGetAccounts',
-        'Sales.getVendors'             => '\Dlab\ITCReporter\Responses\SalesGetVendors',
-        'Sales.getReport'              => '\Dlab\ITCReporter\Responses\SalesGetReport',
-        'Finance.getAccounts'          => '\Dlab\ITCReporter\Responses\FinanceGetAccounts',
-        'Finance.getVendorsAndRegions' => '\Dlab\ITCReporter\Responses\FinanceGetVendors',
-        'Finance.getReport'            => '\Dlab\ITCReporter\Responses\FinanceGetReport'
+        'Sales.getAccounts' => '\Dlab\ITCReporter\Responses\SalesGetAccounts',
+        'Sales.getVendors' => '\Dlab\ITCReporter\Responses\SalesGetVendors',
+        'Sales.getReport' => '\Dlab\ITCReporter\Responses\SalesGetReport',
+        'Finance.getAccounts' =>
+            '\Dlab\ITCReporter\Responses\FinanceGetAccounts',
+        'Finance.getVendorsAndRegions' =>
+            '\Dlab\ITCReporter\Responses\FinanceGetVendors',
+        'Finance.getReport' => '\Dlab\ITCReporter\Responses\FinanceGetReport',
     ];
     protected $lastResult = null;
 
@@ -33,8 +33,7 @@ class Reporter
      *
      * @param ClientInterface $Guzzle
      */
-    public function __construct(ClientInterface $Guzzle)
-    {
+    public function __construct(ClientInterface $Guzzle) {
         $this->Guzzle = $Guzzle;
     }
 
@@ -43,11 +42,13 @@ class Reporter
      *
      * @return array $accounts
      */
-    public function getSalesAccounts()
-    {
+    public function getSalesAccounts() {
         $json = $this->buildJsonRequest('Sales.getAccounts');
 
-        $this->lastResult = $Result = $this->performRequest(self::SALESURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::SALESURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -64,11 +65,13 @@ class Reporter
      *
      * @return array $vendors
      */
-    public function getSalesVendors()
-    {
+    public function getSalesVendors() {
         $json = $this->buildJsonRequest('Sales.getVendors');
 
-        $this->lastResult = $Result = $this->performRequest(self::SALESURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::SALESURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -109,7 +112,10 @@ class Reporter
             $date
         );
 
-        $this->lastResult = $Result = $this->performRequest(self::SALESURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::SALESURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -126,11 +132,13 @@ class Reporter
      *
      * @return array $accounts
      */
-    public function getFinanceAccounts()
-    {
+    public function getFinanceAccounts() {
         $json = $this->buildJsonRequest('Finance.getAccounts');
 
-        $this->lastResult = $Result = $this->performRequest(self::FINANCEURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::FINANCEURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -147,11 +155,13 @@ class Reporter
      *
      * @return array $vendors
      */
-    public function getFinanceVendors()
-    {
+    public function getFinanceVendors() {
         $json = $this->buildJsonRequest('Finance.getVendorsAndRegions');
 
-        $this->lastResult = $Result = $this->performRequest(self::FINANCEURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::FINANCEURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -192,7 +202,10 @@ class Reporter
             $period
         );
 
-        $this->lastResult = $Result = $this->performRequest(self::FINANCEURL, $json);
+        $this->lastResult = $Result = $this->performRequest(
+            self::FINANCEURL,
+            $json
+        );
 
         if ($Result->isSuccess()) {
             return $this->processResponse(
@@ -213,27 +226,25 @@ class Reporter
      * @return string $json JSON string for the request
      * @throws \BadFunctionCallException
      */
-    public function buildJsonRequest()
-    {
+    public function buildJsonRequest() {
         $args = func_get_args();
 
         if (empty($args[0])) {
-            throw new \BadFunctionCallException('A valid action must be passed to Reporter::buildJsonRequest()');
+            throw new \BadFunctionCallException(
+                'A valid action must be passed to Reporter::buildJsonRequest()'
+            );
         }
 
         $json = [
             'accesstoken' => $this->access_token,
-            'version'      => self::VERSION,
-            'mode'         => self::MODE,
-            'account'      => (string)$this->account
+            'version' => self::VERSION,
+            'mode' => self::MODE,
+            'account' => (string) $this->account,
         ];
 
         // build up the action and parameters we actually want to perform
-        $queryInput = [
-            'p=Reporter.properties',
-            array_shift($args)
-        ];
-        if (! empty($args)) {
+        $queryInput = ['p=Reporter.properties', array_shift($args)];
+        if (!empty($args)) {
             $queryInput[] = implode(',', $args);
         }
         $json['queryInput'] = '[' . implode(', ', $queryInput) . ']';
@@ -248,35 +259,28 @@ class Reporter
      * @param string $jsonRequest
      * @return Result
      */
-    public function performRequest($endpoint, $jsonRequest)
-    {
+    public function performRequest($endpoint, $jsonRequest) {
         try {
-            $Response = $this->Guzzle->request(
-                'POST',
-                $endpoint,
-                [
-                    'form_params' => [
-                        'jsonRequest' => $jsonRequest
-                    ],
-                    'headers' => [
-                        'User-Agent' => 'Java/1.8.0_92',
-                        'Accept' => 'text/xml, text/plain'
-                    ],
-                    'decode_content' => false
-                ]
-            );
+            $Response = $this->Guzzle->request('POST', $endpoint, [
+                'form_params' => [
+                    'jsonRequest' => $jsonRequest,
+                ],
+                'headers' => [
+                    'User-Agent' => 'Java/1.8.0_92',
+                    'Accept' => 'text/xml, text/plain',
+                ],
+                'decode_content' => false,
+            ]);
 
             if ($Response->getStatusCode() !== 200) {
-                throw new \UnexpectedValueException('The request did not return a 200 OK response');
+                throw new \UnexpectedValueException(
+                    'The request did not return a 200 OK response'
+                );
             }
 
-            return Result::success('OK')
-                ->setExtra('Response', $Response);
+            return Result::success('OK')->setExtra('Response', $Response);
         } catch (\Exception $e) {
-            return Result::fail(
-                Result::ERROR,
-                $e->getMessage()
-            );
+            return Result::fail(Result::ERROR, $e->getMessage());
         }
     }
 
@@ -287,19 +291,17 @@ class Reporter
      * @param Psr\Http\Message\ResponseInterface $Response
      * @return array
      */
-    public function processResponse($action, ResponseInterface $Response)
-    {
+    public function processResponse($action, ResponseInterface $Response) {
         if (empty($this->responses[$action])) {
             throw new \InvalidArgumentException(
-                $action . ' was passed to processResponse, no Response class exists for this action.'
+                $action .
+                    ' was passed to processResponse, no Response class exists for this action.'
             );
         }
 
         $responseClass = $this->responses[$action];
 
-        $ResponseProcesser = new $responseClass(
-            $Response
-        );
+        $ResponseProcesser = new $responseClass($Response);
 
         return $ResponseProcesser->process();
     }
@@ -309,8 +311,7 @@ class Reporter
      *
      * @return Result|null
      */
-    public function getLastResult()
-    {
+    public function getLastResult() {
         return $this->lastResult;
     }
 
@@ -321,9 +322,8 @@ class Reporter
      * @return Reporter $this
      * @throws \InvalidArgumentException
      */
-    public function setAccountNum($account)
-    {
-        if (! is_int($account)) {
+    public function setAccountNum($account) {
+        if (!is_int($account)) {
             throw new \InvalidArgumentException(
                 'Argument passed to Reporter::setAccount must be an integer account number'
             );
@@ -338,8 +338,7 @@ class Reporter
      *
      * @return string $account
      */
-    public function getAccountNum()
-    {
+    public function getAccountNum() {
         return $this->account;
     }
 
@@ -350,10 +349,11 @@ class Reporter
      * @return Reporter $this
      * @throws \InvalidArgumentException
      */
-    public function setAccessToken($access_token)
-    {
-        if (empty($access_token) || ! is_string($access_token)) {
-            throw new \InvalidArgumentException('Argument passed to Reporter::setAccessToken was not a string');
+    public function setAccessToken($access_token) {
+        if (empty($access_token) || !is_string($access_token)) {
+            throw new \InvalidArgumentException(
+                'Argument passed to Reporter::setAccessToken was not a string'
+            );
         }
 
         $this->access_token = $access_token;
@@ -365,8 +365,7 @@ class Reporter
      *
      * @return string $access_token
      */
-    public function getAccessToken()
-    {
+    public function getAccessToken() {
         return $this->access_token;
     }
 }

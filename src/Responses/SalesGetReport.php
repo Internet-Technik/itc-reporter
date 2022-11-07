@@ -4,22 +4,19 @@ namespace Dlab\ITCReporter\Responses;
 use Dlab\ITCReporter\Interfaces\ResponseProcessor;
 use Psr\Http\Message\ResponseInterface;
 
-class SalesGetReport implements ResponseProcessor
-{
-    public function __construct(ResponseInterface $Response)
-    {
+class SalesGetReport implements ResponseProcessor {
+    public function __construct(ResponseInterface $Response) {
         $this->Response = $Response;
     }
 
-    public function process()
-    {
+    public function process() {
         $contents = $this->Response->getBody()->getContents();
         if (empty($contents)) {
             return [];
         }
 
         $reportCSV = @gzdecode($contents);
-        if (! isset($reportCSV) || ! $reportCSV) {
+        if (!isset($reportCSV) || !$reportCSV) {
             return [];
         }
 
@@ -35,10 +32,7 @@ class SalesGetReport implements ResponseProcessor
 
             $data = explode("\t", $values);
 
-            $reportArray[] = array_combine(
-                $headers,
-                $data
-            );
+            $reportArray[] = array_combine($headers, $data);
         }
 
         return $reportArray;

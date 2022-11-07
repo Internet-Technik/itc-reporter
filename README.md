@@ -16,14 +16,14 @@ This is the first PHP Composer based port of the Reporter tool and attempts to m
 
 ITC-Reporter requires the following:
 
-* "php": ">=5.5.0"
-* "guzzlehttp/guzzle": "7.*"
-* "snscripts/result": "1.0.*"
+- "php": ">=5.5.0"
+- "guzzlehttp/guzzle": "7.\*"
+- "snscripts/result": "1.0.\*"
 
 And the following if you wish to run in dev mode and run tests.
 
-* "phpunit/phpunit": "9.*"
-* "squizlabs/php_codesniffer": "~2.0"
+- "phpunit/phpunit": "9.\*"
+- "squizlabs/php_codesniffer": "~2.0"
 
 ## Installation
 
@@ -31,23 +31,23 @@ And the following if you wish to run in dev mode and run tests.
 
 Simplest installation is via composer.
 
-	composer require dlab/itc-reporter 2.*
+    composer require dlab/itc-reporter 2.*
 
 or adding to your projects `composer.json` file.
 
-	{
-	    "require": {
-	        "dlab/itc-reporter": "2.*"
-	    }
-	}
+    {
+        "require": {
+            "dlab/itc-reporter": "2.*"
+        }
+    }
 
 ### Setup
 
 Instantiate the class as follows.
 
-	$Reporter = new \Dlab\ITCReporter\Reporter(
-		new \GuzzleHttp\Client
-	);
+    $Reporter = new \Dlab\ITCReporter\Reporter(
+    	new \GuzzleHttp\Client
+    );
 
 ## Usage
 
@@ -57,11 +57,11 @@ Aside from the main methods that return the data, all methods support chaining.
 
 To use the Reporter, you will need the an access token for your iTunes Connect account. This is obtained from the [iTunes Connect Sales and Trends screen](https://reportingitc2.apple.com/reports.html), as described in the [Reporter documentation](https://help.apple.com/itc/appsreporterguide/#/apd2f1f1cfa3). Set the access token as follows.
 
-	$Reporter->setAccessToken('12345678-1234-abcd-abcd-12345678abcd');
+    $Reporter->setAccessToken('12345678-1234-abcd-abcd-12345678abcd');
 
 There are also "getter" methods to retrieve the currently set data.
 
-	$Reporter->getAccessToken();
+    $Reporter->getAccessToken();
 
 Before progressing any further with this package, it will be worth while reviewing Apples Documentation at [https://help.apple.com/itc/appsreporterguide/](https://help.apple.com/itc/appsreporterguide/).
 
@@ -69,31 +69,31 @@ Before progressing any further with this package, it will be worth while reviewi
 
 Most actions require an account number also setting. You can retrieve the accounts your user has available for both "Sales & Trends" and "Payments & Financial Reports" by using the following functions.
 
-	$Reporter->getSalesAccounts();
-	$Reporter->getFinanceAccounts();
+    $Reporter->getSalesAccounts();
+    $Reporter->getFinanceAccounts();
 
 Both of these return data in the same array format. If you have no access to any accounts a blank array will be returned. If you do have access they will return an array in the following format.
 
-	[
-	    1234567 => [
-	        'Name' => 'John Smith',
-	        'Number' => 1234567
-	    ],
-	    9876543 => [
-	        'Name' => 'Jane Doe',
-	        'Number' => 9876543
-	    ]
-	]
+    [
+        1234567 => [
+            'Name' => 'John Smith',
+            'Number' => 1234567
+        ],
+        9876543 => [
+            'Name' => 'Jane Doe',
+            'Number' => 9876543
+        ]
+    ]
 
 The 'Number' element is the account number that is needed for the rest of the endpoints.
 
 You can set the account number you wish to use by calling;
 
-	$Reporter->setAccountNum(1234567);
+    $Reporter->setAccountNum(1234567);
 
 You can then also retrieve the currently set account number with:
 
-	$Reporter->getAccountNum();
+    $Reporter->getAccountNum();
 
 ### Vendor Number
 
@@ -107,11 +107,11 @@ In both instances, if no vendors exists, a blank array will be returned.
 
 Use the following function to get the Vendors for the Sales & Trends
 
-	$Reporter->getSalesVendors();
+    $Reporter->getSalesVendors();
 
 This will return a simple array of Vendor numbers.
 
-	[
+    [
         1234567,
         9876543
     ]
@@ -120,7 +120,7 @@ This will return a simple array of Vendor numbers.
 
 Use the following function get the Vendors for the Payments & Financial Reports.
 
-	$Reporter->getFinanceVendors();
+    $Reporter->getFinanceVendors();
 
 This returns a slightly more complicated array, detailing the Vendor, the Region Codes available and the Reports available for each Region Code.
 
@@ -165,27 +165,27 @@ For Sales reports, consult the documentation [here](https://help.apple.com/itc/a
 
 To get reports call the method in the following way:
 
-	$Reporter->getSalesReport(
-		$vendorNum,
-		$reportType,
-		$reportSubType,
-		$dateType,
-		$date
-	);
+    $Reporter->getSalesReport(
+    	$vendorNum,
+    	$reportType,
+    	$reportSubType,
+    	$dateType,
+    	$date
+    );
 
 An actual call may look something like this:
 
-	$Reporter->getSalesReport(
-		1234567,
-		'Sales',
-		'Summary',
-		'Daily',
-		'20161025' //YYYYMMDD
-	);
+    $Reporter->getSalesReport(
+    	1234567,
+    	'Sales',
+    	'Summary',
+    	'Daily',
+    	'20161025' //YYYYMMDD
+    );
 
 If nothing was found or a problem occurred, a blank array will be returned. If the report does have data an array similar to below will be returned.
 
-	[
+    [
         [
             [Provider] => APPLE
             [Provider Country] => US
@@ -244,7 +244,7 @@ If nothing was found or a problem occurred, a blank array will be returned. If t
             [Preserved Pricing] =>
             [Client] =>
         ]
-	]
+    ]
 
 #### Financials- Report
 
@@ -252,79 +252,79 @@ For Financial reports, consult the documentation [here](https://help.apple.com/i
 
 To get reports call the method in the following way:
 
-	$Reporter->getFinanceReport(
-		$vendorNum,
-		$regionCode,
-		$reportType,
-		$fiscalYear,
-		$fiscalPeriod
-	);
+    $Reporter->getFinanceReport(
+    	$vendorNum,
+    	$regionCode,
+    	$reportType,
+    	$fiscalYear,
+    	$fiscalPeriod
+    );
 
 An actual call may look something like this:
 
-	$Reporter->getSalesReport(
-		1234567,
-		'GB',
-		'Financial',
-		'2016',
-		'1' //YYYYMMDD
-	);
+    $Reporter->getSalesReport(
+    	1234567,
+    	'GB',
+    	'Financial',
+    	'2016',
+    	'1' //YYYYMMDD
+    );
 
 If nothing was found or a problem occurred, a blank array will be returned. If the report does have data an array similar to below will be returned.
 
-	[
-	    [
-	        [Start Date] => 09/27/2015
-	        [End Date] => 10/31/2015
-	        [UPC] =>
-	        [ISRC/ISBN] =>
-	        [Vendor Identifier] => 123456789012
-	        [Quantity] => 22
-	        [Partner Share] => 0.46
-	        [Extended Partner Share] => 10.12
-	        [Partner Share Currency] => GBP
-	        [Sales or Return] => S
-	        [Apple Identifier] => 123456789
-	        [Artist/Show/Developer/Author] => John Smith
-	        [Title] => My App
-	        [Label/Studio/Network/Developer/Publisher] =>
-	        [Grid] =>
-	        [Product Type Identifier] => 1
-	        [ISAN/Other Identifier] =>
-	        [Country Of Sale] => GB
-	        [Pre-order Flag] =>
-	        [Promo Code] =>
-	        [Customer Price] => 0.79
-	        [Customer Currency] => GBP
-	    ],
-	    [
-	        [Start Date] => 09/27/2015
-	        [End Date] => 10/31/2015
-	        [UPC] =>
-	        [ISRC/ISBN] =>
-	        [Vendor Identifier] => 123789456
-	        [Quantity] => 1
-	        [Partner Share] => 0.46
-	        [Extended Partner Share] => 0.46
-	        [Partner Share Currency] => GBP
-	        [Sales or Return] => S
-	        [Apple Identifier] => 987654321
-	        [Artist/Show/Developer/Author] => John Smith
-	        [Title] => My App 2
-	        [Label/Studio/Network/Developer/Publisher] =>
-	        [Grid] =>
-	        [Product Type Identifier] => 1F
-	        [ISAN/Other Identifier] =>
-	        [Country Of Sale] => GB
-	        [Pre-order Flag] =>
-	        [Promo Code] =>
-	        [Customer Price] => 0.79
-	        [Customer Currency] => GBP
-	    ],
-	    [Total_Rows] => 6
-	    [Total_Amount] => 28.32
-	    [Total_Units] => 58
-	]
+    [
+        [
+            [Start Date] => 09/27/2015
+            [End Date] => 10/31/2015
+            [UPC] =>
+            [ISRC/ISBN] =>
+            [Vendor Identifier] => 123456789012
+            [Quantity] => 22
+            [Partner Share] => 0.46
+            [Extended Partner Share] => 10.12
+            [Partner Share Currency] => GBP
+            [Sales or Return] => S
+            [Apple Identifier] => 123456789
+            [Artist/Show/Developer/Author] => John Smith
+            [Title] => My App
+            [Label/Studio/Network/Developer/Publisher] =>
+            [Grid] =>
+            [Product Type Identifier] => 1
+            [ISAN/Other Identifier] =>
+            [Country Of Sale] => GB
+            [Pre-order Flag] =>
+            [Promo Code] =>
+            [Customer Price] => 0.79
+            [Customer Currency] => GBP
+        ],
+        [
+            [Start Date] => 09/27/2015
+            [End Date] => 10/31/2015
+            [UPC] =>
+            [ISRC/ISBN] =>
+            [Vendor Identifier] => 123789456
+            [Quantity] => 1
+            [Partner Share] => 0.46
+            [Extended Partner Share] => 0.46
+            [Partner Share Currency] => GBP
+            [Sales or Return] => S
+            [Apple Identifier] => 987654321
+            [Artist/Show/Developer/Author] => John Smith
+            [Title] => My App 2
+            [Label/Studio/Network/Developer/Publisher] =>
+            [Grid] =>
+            [Product Type Identifier] => 1F
+            [ISAN/Other Identifier] =>
+            [Country Of Sale] => GB
+            [Pre-order Flag] =>
+            [Promo Code] =>
+            [Customer Price] => 0.79
+            [Customer Currency] => GBP
+        ],
+        [Total_Rows] => 6
+        [Total_Amount] => 28.32
+        [Total_Units] => 58
+    ]
 
 ## Debugging
 

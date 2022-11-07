@@ -4,19 +4,14 @@ namespace Dlab\ITCReporter\Responses;
 use Dlab\ITCReporter\Interfaces\ResponseProcessor;
 use Psr\Http\Message\ResponseInterface;
 
-class FinanceGetVendors implements ResponseProcessor
-{
-    public function __construct(ResponseInterface $Response)
-    {
+class FinanceGetVendors implements ResponseProcessor {
+    public function __construct(ResponseInterface $Response) {
         $this->Response = $Response;
     }
 
-    public function process()
-    {
+    public function process() {
         try {
-            $XML = new \SimpleXMLElement(
-                $this->Response->getBody()
-            );
+            $XML = new \SimpleXMLElement($this->Response->getBody());
 
             if (empty($XML->Vendor)) {
                 throw new \Exception('No account data');
@@ -40,13 +35,13 @@ class FinanceGetVendors implements ResponseProcessor
 
                 $regions[$code] = [
                     'Code' => $code,
-                    'Reports' => $reports
+                    'Reports' => $reports,
                 ];
             }
 
             $vendors[$id] = [
                 'Number' => $id,
-                'Regions' => $regions
+                'Regions' => $regions,
             ];
         }
 

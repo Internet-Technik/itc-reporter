@@ -4,19 +4,14 @@ namespace Dlab\ITCReporter\Responses;
 use Dlab\ITCReporter\Interfaces\ResponseProcessor;
 use Psr\Http\Message\ResponseInterface;
 
-class SalesGetVendors implements ResponseProcessor
-{
-    public function __construct(ResponseInterface $Response)
-    {
+class SalesGetVendors implements ResponseProcessor {
+    public function __construct(ResponseInterface $Response) {
         $this->Response = $Response;
     }
 
-    public function process()
-    {
+    public function process() {
         try {
-            $XML = new \SimpleXMLElement(
-                $this->Response->getBody()
-            );
+            $XML = new \SimpleXMLElement($this->Response->getBody());
 
             if (empty($XML->Vendor)) {
                 throw new \Exception('No account data');

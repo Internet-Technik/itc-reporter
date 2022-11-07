@@ -3,102 +3,84 @@ namespace Dlab\ITCReporter\Tests\Responses;
 
 use Dlab\ITCReporter\Responses\FinanceGetReport;
 
-class FinanceGetReportTest extends \PHPUnit\Framework\TestCase
-{
-    public function testProcessReturnsReportInArrayFormat()
-    {
-        $Response = $this->getMockBuilder('Psr\Http\Message\ResponseInterface')->getMock();
-        $Response->method('getBody')
-            ->willReturn(
-                new TestFinanceReportContent
-            );
+class FinanceGetReportTest extends \PHPUnit\Framework\TestCase {
+    public function testProcessReturnsReportInArrayFormat() {
+        $Response = $this->getMockBuilder(
+            'Psr\Http\Message\ResponseInterface'
+        )->getMock();
+        $Response
+            ->method('getBody')
+            ->willReturn(new TestFinanceReportContent());
 
-        $Processor = new FinanceGetReport(
-            $Response
-        );
+        $Processor = new FinanceGetReport($Response);
 
         $this->assertSame(
             [
                 [
                     'Header 1' => 'Foo',
                     'Header 2' => 'Bar',
-                    'Header 3' => 'Foobar'
+                    'Header 3' => 'Foobar',
                 ],
                 [
                     'Header 1' => 'Fizz',
                     'Header 2' => '',
-                    'Header 3' => 'Fizzbuzz'
+                    'Header 3' => 'Fizzbuzz',
                 ],
                 [
                     'Header 1' => '',
                     'Header 2' => 'Test',
-                    'Header 3' => 'Tester'
+                    'Header 3' => 'Tester',
                 ],
                 'Total' => '100',
-                'Grand Total' => '500'
+                'Grand Total' => '500',
             ],
             $Processor->process()
         );
     }
 
-    public function testProcessReturnsEmptyArrayWhenContentsEmpty()
-    {
-        $Response = $this->getMockBuilder('Psr\Http\Message\ResponseInterface')->getMock();
-        $Response->method('getBody')
-            ->willReturn(
-                new TestFinanceReportNoContent
-            );
+    public function testProcessReturnsEmptyArrayWhenContentsEmpty() {
+        $Response = $this->getMockBuilder(
+            'Psr\Http\Message\ResponseInterface'
+        )->getMock();
+        $Response
+            ->method('getBody')
+            ->willReturn(new TestFinanceReportNoContent());
 
-        $Processor = new FinanceGetReport(
-            $Response
-        );
+        $Processor = new FinanceGetReport($Response);
 
-        $this->assertSame(
-            [],
-            $Processor->process()
-        );
+        $this->assertSame([], $Processor->process());
     }
 
-    public function testProcessReturnsEmptyArrayIfFileIsNotGZipped()
-    {
-        $Response = $this->getMockBuilder('Psr\Http\Message\ResponseInterface')->getMock();
-        $Response->method('getBody')
-            ->willReturn(
-                new TestFinanceReportNoEncoding
-            );
+    public function testProcessReturnsEmptyArrayIfFileIsNotGZipped() {
+        $Response = $this->getMockBuilder(
+            'Psr\Http\Message\ResponseInterface'
+        )->getMock();
+        $Response
+            ->method('getBody')
+            ->willReturn(new TestFinanceReportNoEncoding());
 
-        $Processor = new FinanceGetReport(
-            $Response
-        );
+        $Processor = new FinanceGetReport($Response);
 
-        $this->assertSame(
-            [],
-            $Processor->process()
-        );
+        $this->assertSame([], $Processor->process());
     }
 }
 
-class TestFinanceReportContent
-{
-    public function getContents()
-    {
-        $report = "Header 1\tHeader 2\tHeader 3\nFoo\tBar\tFoobar\n\nFizz\t\tFizzbuzz\n\tTest\tTester\nTotal\t100\nGrand Total\t500";
+class TestFinanceReportContent {
+    public function getContents() {
+        $report =
+            "Header 1\tHeader 2\tHeader 3\nFoo\tBar\tFoobar\n\nFizz\t\tFizzbuzz\n\tTest\tTester\nTotal\t100\nGrand Total\t500";
         return gzencode($report);
     }
 }
 
-class TestFinanceReportNoEncoding
-{
-    public function getContents()
-    {
+class TestFinanceReportNoEncoding {
+    public function getContents() {
         return "Header 1\tHeader 2\tHeader 3\nFoo\tBar\tFoobar\nFizz\t\tFizzbuzz\n\tTest\tTester\nTotal\t100\nGrand Total\t500";
     }
 }
 
-class TestFinanceReportNoContent
-{
-    public function getContents()
-    {
+class TestFinanceReportNoContent {
+    public function getContents() {
         return '';
     }
 }
